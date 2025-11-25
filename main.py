@@ -42,6 +42,11 @@ def gaussian_factorization(polynomial: list[float]) -> list[float]:
                 quotient[i] = quotient[i - 1] * new_root + quotient[i]
             quotient.pop()
             remainder = sum(coef * (new_root ** exp) for exp, coef in enumerate(reversed(quotient)))
+    # Single root remaining
+    if len(quotient) == 2:
+        print(quotient)
+        roots.append(-quotient[1] / quotient[0])
+    # Quadratic remaining
     if len(quotient) == 3:
         return roots + quadratic_formula(quotient[0], quotient[1], quotient[2])
     else:
@@ -63,7 +68,7 @@ def factorize_polynomial(polynomial : list[float]) -> list[float]:
         raise ValueError("El polinomio debe ser al menos de grado 2")
     elif len(polynomial) == 2:
         # La raíz de una función lineal es -b/a
-        roots = [-polynomial[0] / polynomial[1]]
+        roots = [-polynomial[1] / polynomial[0]]
     elif len(polynomial) == 3:
         roots =  quadratic_formula(polynomial[0], polynomial[1], polynomial[2])
     else:
